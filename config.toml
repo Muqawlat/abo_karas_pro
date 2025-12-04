@@ -1,7 +1,7 @@
 baseURL = "https://example.com/"
 title = "أفضل شركة مقاولات في الكويت | أبو كاراس"
 languageCode = "ar"
-theme = ""
+#theme = ""
 # يجعل direction يُستَدعى من languageCode في القوالب
 # بيانات SEO عامة
 description = "تنفيذ مشاريع المقاولات بجودة وموثوقية في الكويت."
