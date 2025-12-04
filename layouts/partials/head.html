@@ -10,7 +10,6 @@
   {{ $scss := resources.Get "scss/main.scss" | resources.ToCSS $options | resources.Minify }}
   <link rel="stylesheet" href="{{ $scss.RelPermalink }}">
 
-  {{/* Inline theme colors from config for SCSS variables (keeps single-file control) */}}
   <style>
     :root{
       --color-primary: {{ .Site.Params.color_primary }};
@@ -20,11 +19,10 @@
     }
   </style>
 
-  {{/* LocalBusiness Schema (JSON-LD) - dynamic */}}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "{{ .Site.Params.localbusiness["@type"] }}",
+    "@type": "{{ index .Site.Params.localbusiness \"@type\" }}",
     "name": "{{ .Site.Params.localbusiness.name }}",
     "description": "{{ .Site.Params.localbusiness.description }}",
     "telephone": "{{ .Site.Params.localbusiness.telephone }}",
