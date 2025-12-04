@@ -1,0 +1,32 @@
+{{/* layouts/partials/hero.html */}}
+{{/* Hero with defensive image handling:
+   - search for local asset: assets/images/hero-new.* via resources.Match
+   - if found: process (.Resize + .Convert)
+   - if not: use external placeholder without any .Convert/.Fill on it
+*/}}
+
+{{ $heroBase := .Site.Params.hero_image | default "images/hero-new" }}
+{{/* resources.Match is relative to assets/ */}}
+{{ $matches := resources.Match (printf "%s.*" $heroBase) }}
+
+<section class="hero" aria-labelledby="hero-title">
+  {{ if gt (len $matches) 0 }}
+    {{/* local asset found: take first and process safely */}}
+    {{ $img := index $matches 0 }}
+    {{/* resize to max width for hero and create a webp copy */}}
+    {{ $resized := $img.Fit "2000x" }}
+    {{ $webp := $resized | resources.Convert "webp" }}
+    <div class="hero__bg" style="background-image:url('{{ $webp.RelPermalink }}')" role="img" aria-label="Hero image"></div>
+  {{ else }}
+    {{/* no local image: use external placeholder directly (no Convert/Fill) */}}
+    <div class="hero__bg" style="background-image:url('{{ .Site.Params.placeholder_image }}')" role="img" aria-label="Hero placeholder"></div>
+  {{ end }}
+
+  <div class="hero__overlay"></div>
+
+  <div class="hero__content">
+    {{/* Title with strong outline/shadow - text controlled from params */}}
+    <h1 id="hero-title" class="hero__title">{{ .Site.Params.company_name }}</h1>
+    <p class="hero__tagline">{{ .Site.Params.tagline }}</p>
+  </div>
+</section>
