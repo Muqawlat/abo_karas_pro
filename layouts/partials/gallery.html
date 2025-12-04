@@ -1,0 +1,27 @@
+{{/* layouts/partials/gallery.html */}}
+{{/* Gallery carousel:
+   - gather local images from assets/images/gallery/*
+   - if none found, show a single slide with placeholder
+   - DO NOT call .Convert/.Fill on external placeholders
+*/}}
+
+<section class="gallery" aria-label="معرض الأعمال">
+  <h2 style="margin-bottom:1rem;">معرض الأعمال</h2>
+
+  <div class="gallery__viewport">
+    <div class="gallery__track">
+      {{/* match all in assets/images/gallery/* (relative to assets/) */}}
+      {{ $g := resources.Match "images/gallery/*" }}
+      {{ if gt (len $g) 0 }}
+        {{ range $i, $img := $g }}
+          {{/* process each local image defensively (resize + webp) */}}
+          {{ $resized := $img.Fit "1200x720" }}
+          {{ $webp := $resized | resources.Convert "webp" }}
+          <div class="gallery__slide" style="background-image:url('{{ $webp.RelPermalink }}');" role="img" aria-label="صورة معرض {{ add $i 1 }}"></div>
+        {{ end }}
+      {{ else }}
+        <div class="gallery__slide" style="background-image:url('{{ .Site.Params.placeholder_image }}');" role="img" aria-label="معرض افتراضي"></div>
+      {{ end }}
+    </div>
+  </div>
+</section>
