@@ -1,0 +1,19 @@
+{{/* layouts/partials/services.html */}}
+{{/* Services vertical stack. Content controlled entirely from config.toml -> params.services_keywords */}}
+
+<section class="services" aria-labelledby="services-heading">
+  <h2 id="services-heading" style="margin-bottom:1rem;">خدماتنا</h2>
+
+  {{/* Hugo comment to explain data source */}}
+  {{/* بيانات الخدمات تأتي من .Site.Params.services_keywords */}}
+  {{ $services := .Site.Params.services_keywords }}
+  {{ range $i, $s := $services }}
+    <article class="service-card" role="article" aria-roledescription="service">
+      <div class="service-card__icon">{{ add $i 1 }}</div>
+      <div class="service-card__body">
+        <h3 style="font-size:1.05rem;">{{ $s }}</h3>
+        {{/* مسافة لشرح قصير — يمكن توسيعها عبر config لاحقًا */}}
+      </div>
+    </article>
+  {{ end }}
+</section>
