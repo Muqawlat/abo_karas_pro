@@ -1,0 +1,197 @@
+// assets/scss/main.scss
+// Hugo comment style doesn't apply here; this is SCSS file.
+// التصميم العام - Minimalist, whitespace, soft shadows
+// Color variables binded to config via inline CSS in head partial for safety.
+
+:root {
+  --color-primary: #0b5cff;
+  --color-accent: #ffb400;
+  --color-bg: #ffffff;
+  --color-text: #111827;
+}
+
+/* دعم RTL عبر attribute dir on <html> */
+[dir="rtl"] {
+  direction: rtl;
+}
+
+/* Global reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,body {
+  height: 100%;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(16,24,40,0.06);
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.7);
+  transition: filter .3s ease;
+}
+
+/* Overlay for dark mode/hovers */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.35));
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  padding: 2rem;
+}
+
+/* Title with strong outline/shadow effect */
+.hero__title {
+  font-size: 5vw;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  -webkit-text-stroke: 2px rgba(0,0,0,0.25); /* subtle outline for legibility */
+  text-shadow:
+    0 2px 0 rgba(0,0,0,0.35),
+    0 6px 30px rgba(2,6,23,0.5);
+  color: transparent;
+  -webkit-text-fill-color: white;
+}
+
+/* Tagline */
+.hero__tagline {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  opacity: 0.95;
+}
+
+/* Services - vertical stack cards */
+.services {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.service-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(10,25,47,0.06);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Icon placeholder */
+.service-card__icon {
+  min-width: 56px;
+  min-height: 56px;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(11,92,255,0.12);
+}
+
+/* Gallery (carousel container) */
+.gallery {
+  margin-top: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* Slides wrapper */
+.gallery__track {
+  display: flex;
+  transition: transform 600ms ease;
+  will-change: transform;
+}
+
+/* Individual slide */
+.gallery__slide {
+  min-width: 100%;
+  height: 420px;
+  background-size: cover;
+  background-position: center;
+}
+
+/* CTA float button */
+.cta-float {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 999;
+  display: inline-grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 12px 40px rgba(11,92,255,0.14);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Accessibility focus ring */
+a:focus, button:focus {
+  outline: 3px solid rgba(11,92,255,0.18);
+  outline-offset: 3px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .hero__title { font-size: 10vw; }
+  .gallery__slide { height: 260px; }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0b1220;
+    --color-text: #e6eef8;
+  }
+
+  .hero__bg { filter: brightness(0.5); }
+  .service-card {
+    background: linear-gradient(180deg, rgba(18,20,25,0.5), rgba(18,20,25,0.45));
+    color: var(--color-text);
+  }
+  .cta-float {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  }
+}
