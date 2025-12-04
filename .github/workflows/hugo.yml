@@ -27,7 +27,7 @@ jobs:
         run: hugo --minify
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 
@@ -35,5 +35,5 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Deploy
-        uses: actions/deploy-pages@v2
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
