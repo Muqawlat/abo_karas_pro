@@ -1,0 +1,14 @@
+{{/* layouts/partials/cta_float.html */}}
+{{/* Floating CTA button that opens tel: cleaned phone.
+   Phone cleaning: use replaceRE to remove spaces and non-digit except leading +.
+*/}}
+
+{{ $raw := .Site.Params.phone_raw | default .Site.Params.phone_display }}
+{{/* remove anything that's not a digit or + */}}
+{{ $clean := replaceRE `[^0-9\+]` "" $raw }}
+{{/* final tel: link */}}
+{{ $tel := printf "tel:%s" $clean }}
+
+<a class="cta-float" href="{{ $tel }}" aria-label="اتصل الآن">
+  اتصال
+</a>
