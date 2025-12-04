@@ -1,0 +1,58 @@
+{{/* layouts/index.html - The main page orchestrator */}}
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}" dir="{{ if hasPrefix .Site.Language.Lang "ar" }}rtl{{ else }}ltr{{ end }}">
+  {{ partial "head.html" . }}
+  <body>
+    <main>
+      <div class="container">
+        {{/* Hero */}}
+        {{ if .Site.Params.sections.hero_enable }}
+          {{ partial "hero.html" . }}
+        {{ end }}
+
+        {{/* Services */}}
+        {{ if .Site.Params.sections.services_enable }}
+          {{ partial "services.html" . }}
+        {{ end }}
+
+        {{/* Gallery */}}
+        {{ if .Site.Params.sections.gallery_enable }}
+          {{ partial "gallery.html" . }}
+        {{ end }}
+      </div>
+
+      {{/* Floating CTA */}}
+      {{ if .Site.Params.sections.cta_enable }}
+        {{ partial "cta_float.html" . }}
+      {{ end }}
+    </main>
+
+    {{/* Small script for gallery behavior (kept minimal) */}}
+    <script>
+    {{/* Use Hugo comment to avoid exposing dev notes */}}
+    {{/* Carousel JS: simple auto-slide vanilla JS */}}
+    (function(){
+      // defensive: only run if gallery exists
+      var track = document.querySelector('.gallery__track');
+      if(!track) return;
+      var slides = track.children;
+      var idx = 0;
+      var total = slides.length;
+      function goto(i){
+        idx = (i + total) % total;
+        track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+      }
+      // auto slide every 4s
+      var t = setInterval(function(){ goto(idx+1); }, 4000);
+
+      // pause on hover
+      var gallery = document.querySelector('.gallery');
+      if(gallery){
+        gallery.addEventListener('mouseenter', function(){ clearInterval(t); });
+        gallery.addEventListener('mouseleave', function(){ t = setInterval(function(){ goto(idx+1); }, 4000); });
+      }
+    })();
+    </script>
+
+  </body>
+</html>
