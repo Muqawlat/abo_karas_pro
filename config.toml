@@ -1,0 +1,69 @@
+baseURL = "https://example.com/"
+title = "أفضل شركة مقاولات في الكويت | أبو كاراس"
+languageCode = "ar"
+theme = ""
+# يجعل direction يُستَدعى من languageCode في القوالب
+# بيانات SEO عامة
+description = "تنفيذ مشاريع المقاولات بجودة وموثوقية في الكويت."
+# repository name
+repo = "abo_karas_pro"
+
+[params]
+  company_name = "أبو كاراس"
+  tagline = "تنفيذ مشاريع المقاولات بجودة وموثوقية في الكويت."
+  # الهاتف المعروض جماليًا
+  phone_display = "+965 50333141"
+  # رقم خام سيُنظف برمجياً للروابط
+  phone_raw = "+965 50333141"
+  # Placeholder خارجي للتصميم الدفاعي (يُستخدم فقط إن لم توجد الصور محلياً)
+  placeholder_image = "https://via.placeholder.com/1600x900?text=Abu+Karas"
+  # ألوان أساسية (يجب أن تتحكم منها كل الستايل)
+  color_primary = "#0b5cff"
+  color_accent = "#ffb400"
+  color_bg = "#ffffff"
+  color_text = "#111827"
+
+  # خدمات (يتم التحكم في التفعيل عبر أقسام)
+  services_keywords = [
+    "جميع اعمال الصحى والكهرباء",
+    "تركيب جبس بورد",
+    "اعمال صبغ",
+    "تمديد حمامات ومطابخ",
+    "تكسير"
+  ]
+
+  # مسارات الصور المتوقعة (Hero)
+  hero_image = "images/hero-new" # سوف نبحث عن أي امتداد
+
+[params.sections]
+  hero_enable = true
+  services_enable = true
+  gallery_enable = true
+  cta_enable = true
+
+# معلومات الشركة لـ LocalBusiness Schema
+[params.localbusiness]
+  "@type" = "LocalBusiness"
+  name = "أبو كاراس"
+  description = "شركة مقاولات عامة في الكويت"
+  telephone = "+965 50333141"
+  email = "info@abukarass.com"
+  streetAddress = "مدينة الكويت"
+  addressLocality = "الكويت"
+  postalCode = ""
+  addressCountry = "KW"
+  openingHours = "Sa-Th 08:00-18:00"
+  url = "https://example.com/"
+
+[languages]
+  [languages.ar]
+    languageName = "العربية"
+    weight = 1
+
+# Build & outputs
+[outputs]
+  home = ["HTML", "JSON"]
+
+# Enable minify at build-time (optional)
+[minify]
+  disableXML = true
