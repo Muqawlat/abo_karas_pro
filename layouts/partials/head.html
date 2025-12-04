@@ -5,9 +5,9 @@
   <title>{{ .Site.Title }}</title>
   <meta name="description" content="{{ .Site.Params.tagline }}">
 
-  {{/* Generate CSS from SCSS (Hugo Pipes) */}}
-  {{ $options := (dict "targetPath" "css/main.css") }}
-  {{ $scss := resources.Get "scss/main.scss" | resources.ToCSS $options | resources.Minify }}
+  {{/* Generate CSS using new Hugo Sass system */}}
+  {{ $options := dict "targetPath" "css/main.css" "enableSourceMap" false }}
+  {{ $scss := css.Sass (resources.Get "scss/main.scss") $options | resources.Minify }}
   <link rel="stylesheet" href="{{ $scss.RelPermalink }}">
 
   <style>
