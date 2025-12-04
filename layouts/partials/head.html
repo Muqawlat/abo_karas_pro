@@ -1,0 +1,42 @@
+{{/* layouts/partials/head.html */}}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ .Site.Title }}</title>
+  <meta name="description" content="{{ .Site.Params.tagline }}">
+
+  {{/* Generate CSS from SCSS (Hugo Pipes) */}}
+  {{ $options := (dict "targetPath" "css/main.css") }}
+  {{ $scss := resources.Get "scss/main.scss" | resources.ToCSS $options | resources.Minify }}
+  <link rel="stylesheet" href="{{ $scss.RelPermalink }}">
+
+  {{/* Inline theme colors from config for SCSS variables (keeps single-file control) */}}
+  <style>
+    :root{
+      --color-primary: {{ .Site.Params.color_primary }};
+      --color-accent: {{ .Site.Params.color_accent }};
+      --color-bg: {{ .Site.Params.color_bg }};
+      --color-text: {{ .Site.Params.color_text }};
+    }
+  </style>
+
+  {{/* LocalBusiness Schema (JSON-LD) - dynamic */}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "{{ .Site.Params.localbusiness["@type"] }}",
+    "name": "{{ .Site.Params.localbusiness.name }}",
+    "description": "{{ .Site.Params.localbusiness.description }}",
+    "telephone": "{{ .Site.Params.localbusiness.telephone }}",
+    "email": "{{ .Site.Params.localbusiness.email }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ .Site.Params.localbusiness.streetAddress }}",
+      "addressLocality": "{{ .Site.Params.localbusiness.addressLocality }}",
+      "addressCountry": "{{ .Site.Params.localbusiness.addressCountry }}"
+    },
+    "openingHours": "{{ .Site.Params.localbusiness.openingHours }}",
+    "url": "{{ .Site.Params.localbusiness.url }}"
+  }
+  </script>
+</head>
